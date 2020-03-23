@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
@@ -23,11 +24,12 @@
             android:layout_height="120dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_logo" />
+            android:src="@drawable/ic_logo"
+            android:contentDescription="@string/cd_logo" />
 
         <RelativeLayout
             android:id="@+id/RelativeLayout1"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/LogoIMG">
@@ -37,8 +39,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Login"
+                app:fontFamily="sans-serif-medium"
+                android:text="@string/login"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="30sp" />
@@ -51,6 +53,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/EmailEntry"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -58,22 +61,26 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:text="Username"
+                        android:text="@string/email"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        app:fontFamily="sans-serif-light" />
 
                     <EditText
+                        android:id="@+id/et_email_login"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/text_entry_box"
-                        android:fontFamily="sans-serif-light"
+                        android:hint="@string/email"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
                         android:textColor="@color/white"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        app:fontFamily="sans-serif-light" />
 
                 </LinearLayout>
 
@@ -87,41 +94,60 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-light"
-                            android:text="Password"
+                            app:fontFamily="sans-serif-light"
+                            android:text="@string/password"
                             android:textAllCaps="true"
                             android:textColor="@color/white"
                             android:textSize="15sp" />
 
                         <EditText
+                            android:id="@+id/et_password_login"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/text_entry_box"
-                            android:fontFamily="sans-serif-light"
+                            android:hint="@string/password"
+                            android:importantForAutofill="no"
+                            android:inputType="textPassword"
                             android:paddingLeft="15dp"
                             android:paddingRight="15dp"
                             android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            app:fontFamily="sans-serif-light" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/LinearLayout1"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
-                android:textAllCaps="true"
-                android:text="Login"
                 android:background="@drawable/button"
-                android:textColor="@color/white"
-                android:fontFamily="sans-serif-medium"
                 android:paddingLeft="70dp"
                 android:paddingRight="70dp"
-                android:layout_centerHorizontal="true"
-                android:textSize="20sp"/>
+                android:text="@string/login"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:fontFamily="sans-serif-medium" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar_login"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/LinearLayout1"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="50dp"
+                android:layout_toEndOf="@+id/btn_login"
+                android:layout_toRightOf="@+id/btn_login"
+                android:background="@color/transparent"
+                android:progressDrawable="@drawable/button" />
 
 
         </RelativeLayout>
@@ -138,27 +164,30 @@
         android:visibility="gone">
 
         <Button
+            android:id="@+id/btn_to_register"
             android:layout_width="150dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            android:text="Register"
-            android:textSize="12dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/register"
             android:textColor="@color/white"
-            android:fontFamily="sans-serif-medium"/>
+            android:textSize="12sp"
+            app:fontFamily="sans-serif-medium" />
 
         <Button
+            android:id="@+id/btn_forgot_password"
             android:layout_width="150dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:background="@color/transparent"
-            android:text="Forgot Password"
-            android:textSize="12dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/forgot_password"
             android:textColor="@color/white"
-            android:fontFamily="sans-serif-medium"/>
+            android:textSize="12sp"
+            app:fontFamily="sans-serif-medium" />
 
     </RelativeLayout>
 
