@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "89558219335",
+    "firebase_url": "https://mvp2-6dbeb.firebaseio.com",
+    "project_id": "mvp2-6dbeb",
+    "storage_bucket": "mvp2-6dbeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89558219335:android:793ebdc79fdfd859bd0f62",
+        "android_client_info": {
+          "package_name": "com.example.mvp2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "89558219335-ms3phrqr44rt5pe41dto8qqj91qd9j2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANgo2RV3YgfYDz1-tdV04Sc-3Ph6ZJFlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "89558219335-ms3phrqr44rt5pe41dto8qqj91qd9j2f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
