@@ -3,6 +3,8 @@ package com.example.mvp2;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,29 +72,40 @@ public class RegisterActivity extends AppCompatActivity {
                 String passwordCheck = et_PasswordCheck.getText().toString().trim();
 
                     // REQUIRED FIELDS
-                if(username.isEmpty()) {
-                    et_Username.setError("Username is required.");
-                    return;
-                }
                 if(email.isEmpty()) {
                     et_Email.setError("Email is required.");
+                    progressBar.setVisibility(View.INVISIBLE);
+                    return;
+                }
+                if(!isValidEmail(email)){
+                    et_Email.setError("Not valid Email.");
+                    progressBar.setVisibility(View.INVISIBLE);
+                    return;
+                }
+                if(username.isEmpty()) {
+                    et_Username.setError("Username is required.");
+                    progressBar.setVisibility(View.INVISIBLE);
                     return;
                 }
                 if(password.isEmpty()) {
                     et_Password.setError("Password is required.");
+                    progressBar.setVisibility(View.INVISIBLE);
                     return;
                 }
                 if(passwordCheck.isEmpty()) {
                     et_PasswordCheck.setError("Password is required.");
+                    progressBar.setVisibility(View.INVISIBLE);
                     return;
                 }
                     // FIELD ERRORS
                 if(password.length() < 6){
                     et_Password.setError("Password must be 6 or more characters.");
+                    progressBar.setVisibility(View.INVISIBLE);
                     return;
                 }
                 if(!password.equals(passwordCheck)){
                     et_PasswordCheck.setError("Passwords must match.");
+                    progressBar.setVisibility(View.INVISIBLE);
                     return;
                 }
 
@@ -152,4 +165,9 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    public static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
 }

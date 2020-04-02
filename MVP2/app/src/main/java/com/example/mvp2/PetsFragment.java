@@ -63,6 +63,7 @@ public class PetsFragment extends Fragment {
                         }
                     }
                     updateBars(userInfo);
+                    ((MainActivity)getActivity()).savePet(userInfo);
                 }
             }
         });

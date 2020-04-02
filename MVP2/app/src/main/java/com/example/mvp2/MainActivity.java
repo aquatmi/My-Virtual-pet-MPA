@@ -2,12 +2,20 @@ package com.example.mvp2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,6 +25,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.animation.MotionSpec;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
@@ -50,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference myRef = db.getReference();
     boolean playSound;
     MediaPlayer popSound;
+    LatLng currentPosition = null;
+    float distanceTravelled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +77,39 @@ public class MainActivity extends AppCompatActivity {
         playSound = userInfo.getSound_switch();
         updateDataBase();
 
+        final LocationListener locationListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                double longitude = location.getLongitude();
+                double latitude = location.getLatitude();
+                LatLng newPosition = new LatLng(latitude, longitude);
+                float[] results = new float[1];
+                if (currentPosition == null){
+                    currentPosition = newPosition;
+                } else {
+                    Location.distanceBetween(currentPosition.latitude, currentPosition.longitude,
+                            newPosition.latitude, newPosition.longitude, results);
+                    distanceTravelled += results[0];    // in meters
+                    if (distanceTravelled > 50) {
+                        while ( distanceTravelled > 50) {
+                            userInfo.setPet_exercise(userInfo.getPet_exercise()+1);
+                            distanceTravelled -= 50;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+            }
+        };
 
         btm_menu = findViewById(R.id.bottom_menu);
         btm_menu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -75,7 +119,8 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new PetsFragment(userInfo, shake));
                     return true;
                 } else if(item.getItemId() == R.id.nav_map) {
-                    loadFragment(new MapFragment(userInfo));
+                    Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                    startActivity(intent);
                     return true;
                 } else if(item.getItemId() == R.id.nav_options) {
                     loadFragment(new OptionsFragment(userInfo));
@@ -85,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        loadFragment(new MapFragment(userInfo));
+        loadFragment(new PetsFragment(userInfo, shake));
     }
 
     public void saveOptions(Boolean sound){
@@ -114,12 +159,12 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference current_user_db = myRef.child("Users").child(currentUser);
 
         Map dbInfo = new HashMap();
-        dbInfo.put("pet_exercise", 50);
-        dbInfo.put("pet_fun", 50);
-        dbInfo.put("pet_hunger", 50);
-        dbInfo.put("pet_name", "Your Pet");
-        dbInfo.put("pet_sprite_ID", 0);
-        dbInfo.put("sound_switch", true);
+        dbInfo.put("pet_exercise", userInfo.getPet_exercise());
+        dbInfo.put("pet_fun", userInfo.getPet_fun());
+        dbInfo.put("pet_hunger", userInfo.getPet_hunger());
+        dbInfo.put("pet_name", userInfo.getPet_name());
+        dbInfo.put("pet_sprite_ID", userInfo.getPet_sprite_ID());
+        dbInfo.put("sound_switch", userInfo.getSound_switch());
 
         current_user_db.setValue(dbInfo);
     }
@@ -165,44 +210,45 @@ public class MainActivity extends AppCompatActivity {
         switch (pet){
             case 0:
                 userInfo.setPet_sprite_ID(0);
-                savePet();
+                savePet(userInfo);
                 return;
             case 1:
                 userInfo.setPet_sprite_ID(1);
-                savePet();
+                savePet(userInfo);
                 return;
             case 2:
                 userInfo.setPet_sprite_ID(2);
-                savePet();
+                savePet(userInfo);
                 return;
             case 3:
                 userInfo.setPet_sprite_ID(3);
-                savePet();
+                savePet(userInfo);
                 return;
             case 4:
                 userInfo.setPet_sprite_ID(4);
-                savePet();
+                savePet(userInfo);
                 return;
             case 5:
                 userInfo.setPet_sprite_ID(5);
-                savePet();
+                savePet(userInfo);
                 return;
             case 6:
                 userInfo.setPet_sprite_ID(6);
-                savePet();
+                savePet(userInfo);
                 return;
             case 7:
                 userInfo.setPet_sprite_ID(7);
-                savePet();
+                savePet(userInfo);
                 return;
             case 8:
                 userInfo.setPet_sprite_ID(8);
-                savePet();
+                savePet(userInfo);
                 return;
         }
     }
 
-    private void savePet(){
+    public void savePet(UserInfo ui){
+        userInfo = ui;
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt((currentUser+PET_EXERCISE), userInfo.getPet_exercise());

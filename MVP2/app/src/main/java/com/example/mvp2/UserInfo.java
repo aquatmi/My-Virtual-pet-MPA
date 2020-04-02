@@ -1,5 +1,6 @@
 package com.example.mvp2;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.appbar.AppBarLayout;
 
 public class UserInfo {
@@ -50,6 +51,5 @@ public class UserInfo {
     public void setUser_email(String user_email) {this.user_email = user_email;}
 
     public void setUser_name(String user_name) {this.user_name = user_name;}
-
 
 }
