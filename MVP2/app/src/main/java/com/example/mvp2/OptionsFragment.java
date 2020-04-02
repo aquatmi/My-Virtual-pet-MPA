@@ -1,20 +1,27 @@
 package com.example.mvp2;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
 public class OptionsFragment extends Fragment {
+    UserInfo userInfo;
+    Switch soundSwitch;
+    ImageView chicken, cow, dog, parrot, penguin, pig, rhino, sloth, whale;
+    Button saveButton;
 
-    ImageView grad_b, grad_p, grad_y;
-
-    public OptionsFragment() {
-        // Required empty public constructor
+    public OptionsFragment(UserInfo ui) {
+        userInfo = ui;
     }
 
 
@@ -22,31 +29,85 @@ public class OptionsFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        grad_b = (ImageView) getView().findViewById(R.id.grad_b);
-        grad_p = (ImageView) getView().findViewById(R.id.grad_p);
-        grad_y = (ImageView) getView().findViewById(R.id.grad_y);
+        saveButton = (Button) getView().findViewById(R.id.saveButton);
 
-        grad_b.setOnClickListener(new View.OnClickListener() {
+        soundSwitch = (Switch) getView().findViewById(R.id.soundSwitch);
+        soundSwitch.setChecked(userInfo.getSound_switch());
+
+        chicken = (ImageView) getView().findViewById(R.id.chicken);
+        cow = (ImageView) getView().findViewById(R.id.cow);
+        dog = (ImageView) getView().findViewById(R.id.dog);
+        parrot = (ImageView) getView().findViewById(R.id.parrot);
+        penguin = (ImageView) getView().findViewById(R.id.penguin);
+        pig = (ImageView) getView().findViewById(R.id.pig);
+        rhino = (ImageView) getView().findViewById(R.id.rhino);
+        sloth = (ImageView) getView().findViewById(R.id.sloth);
+        whale = (ImageView) getView().findViewById(R.id.whale);
+
+
+        chicken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).setTheme((int)0);
+                ((MainActivity)getActivity()).changePet(0);
+            }
+        });
+        cow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).changePet(1);
+            }
+        });
+        dog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).changePet(2);
+            }
+        });
+        parrot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).changePet(3);
+            }
+        });
+        penguin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).changePet(4);
+            }
+        });
+        pig.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).changePet(5);
+            }
+        });
+        rhino.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).changePet(6);
+            }
+        });
+        sloth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).changePet(7);
+            }
+        });
+        whale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).changePet(8);
             }
         });
 
-        grad_p.setOnClickListener(new View.OnClickListener() {
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).setTheme((int)1);
+                ((MainActivity)getActivity()).saveOptions(soundSwitch.isChecked());
             }
         });
 
-        grad_y.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity) getActivity()).setTheme((int)2);
 
-            }
-        });
     }
 
     @Override
@@ -54,5 +115,9 @@ public class OptionsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_options, container, false);
+    }
+
+    public void ChangePet(String pet){
+
     }
 }

@@ -51,6 +51,7 @@ public class PetsFragment extends Fragment {
                     Toast.makeText(getContext(), userInfo.getPet_name() + " is too hungry to play!", Toast.LENGTH_SHORT).show();
                 } else {
                     petimg.startAnimation(anim);
+                    ((MainActivity)getActivity()).playSound("pop");
                     if (userInfo.getPet_fun() < 100) {
                         userInfo.setPet_fun(userInfo.getPet_fun() + 1);
                     }
@@ -84,15 +85,24 @@ public class PetsFragment extends Fragment {
     private int getSprite() {
         Log.d(TAG, String.valueOf(userInfo.getPet_sprite_ID()));
         switch (userInfo.getPet_sprite_ID()) {
-            case 0: return R.drawable.chicken;
-            case 1: return R.drawable.cow;
-            case 2: return R.drawable.dog;
-            case 3: return R.drawable.parrot;
-            case 4: return R.drawable.penguin;
-            case 5: return R.drawable.pig;
-            case 6: return R.drawable.rhino;
-            case 7: return R.drawable.sloth;
-            case 8: return R.drawable.whale;
+            case 0:
+                return R.drawable.chicken;
+            case 1:
+                return R.drawable.cow;
+            case 2:
+                return R.drawable.dog;
+            case 3:
+                return R.drawable.parrot;
+            case 4:
+                return R.drawable.penguin;
+            case 5:
+                return R.drawable.pig;
+            case 6:
+                return R.drawable.rhino;
+            case 7:
+                return R.drawable.sloth;
+            case 8:
+                return R.drawable.whale;
         }
         return R.drawable.ic_pets_black_24dp;
     }
