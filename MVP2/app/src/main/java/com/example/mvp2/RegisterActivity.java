@@ -129,7 +129,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful()) {
                     // If sign in fails, display a message to the user.
-                    Toast.makeText(RegisterActivity.this, "Register Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Register Failed, Please try again later", Toast.LENGTH_SHORT).show();
                 } else {
                     // Sign in success, update UI with the signed-in user's information
                     FirebaseUser user = firebaseAuth.getCurrentUser();
