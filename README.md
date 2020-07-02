@@ -15,14 +15,16 @@ Produced Login Screen and Linked to FireBase, to allow for account creation and 
 
 Produced functionality to interact with pet, including feeding and playing
 
-User has to find 3 fuses in the room, to provide power to the door to unlock it and escape.
+Stored data about the users pet on FireBase, which would then be copied to local files on launch, and on the next launch, it would update the FireBase.
+
+This would mean that the app wouldnt need constant access to the internet, however you would need to be connected to the internet to go onto another device.
 
 --------------------------------------------------------------------------
 What I would like to add post-marking
 
-My own artwork and models.
+My own artwork.
 
-More ways to obtain fuses, so that a random 3 could be selected on start.
+Build in the bluetooth features i planned to.
 
-Other levels/rooms
+Deeper mechanics
 
